@@ -24,8 +24,6 @@ defmodule HelloWorld do
   """
   @spec hello(String.t) :: String.t
   def hello(name) do
-
-    "Your implementation goes here"
-
+    "Hello, #{name}!"
   end
 end
