@@ -20,7 +20,7 @@ defmodule NucleotideCount do
   @spec count_recur([char], char, non_neg_integer) :: non_neg_integer
   def count_recur([], nucleotide, count), do: count
   def count_recur([first | rest], nucleotide, count) do
-    if first == nucleotide, do: count = count + 1
+    count = if first == nucleotide, do: count + 1, else: count
     count_recur(rest, nucleotide, count)
   end
 
