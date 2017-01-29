@@ -14,9 +14,15 @@ defmodule NucleotideCount do
   """
   @spec count([char], char) :: non_neg_integer
   def count(strand, nucleotide) do
-
+    count_recur(strand, nucleotide, 0)
   end
 
+  @spec count_recur([char], char, non_neg_integer) :: non_neg_integer
+  def count_recur([], nucleotide, count), do: count
+  def count_recur([first | rest], nucleotide, count) do
+    if first == nucleotide, do: count = count + 1
+    count_recur(rest, nucleotide, count)
+  end
 
   @doc """
   Returns a summary of counts by nucleotide.
