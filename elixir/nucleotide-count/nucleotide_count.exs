@@ -13,15 +13,10 @@ defmodule NucleotideCount do
   1
   """
   @spec count([char], char) :: non_neg_integer
+  def count([], _), do: 0
   def count(strand, nucleotide) do
-    count_recur(strand, nucleotide, 0)
-  end
-
-  @spec count_recur([char], char, non_neg_integer) :: non_neg_integer
-  def count_recur([], _nucleotide, count), do: count
-  def count_recur([first | rest], nucleotide, count) do
-    count = if first == nucleotide, do: count + 1, else: count
-    count_recur(rest, nucleotide, count)
+    strand
+    |> Enum.reduce(0, fn (char, acc) -> if char == nucleotide, do: acc + 1, else: acc end)
   end
 
   @doc """
@@ -35,8 +30,7 @@ defmodule NucleotideCount do
   @spec histogram([char]) :: map
   def histogram(strand) do
     @nucleotides
-    |> Enum.reduce(%{}, fn (nucleotide, acc) ->
-      Map.put(acc, nucleotide, count(strand, nucleotide))
-    end)
+    |> Enum.map(fn (nucleotide) -> {nucleotide, count(strand, nucleotide)} end)
+    |> Enum.into(%{})
   end
 end
