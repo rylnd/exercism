@@ -8,7 +8,7 @@ defmodule Words do
   def count(sentence) do
     sentence
     |> String.downcase
-    |> String.replace(~r/\p{P}|\p{S}/u, " ")
+    |> String.replace(~r/[^\p{L}\p{N}-]/u, " ")
     |> String.split
     |> Enum.reduce(%{}, fn (word, map) ->
       Map.update(map, word, 1, &(&1 + 1))
