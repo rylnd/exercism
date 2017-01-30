@@ -5,5 +5,11 @@ defmodule Acronym do
   """
   @spec abbreviate(String.t()) :: String.t()
   def abbreviate(string) do
+    string
+    |> String.replace(~r/([A-Z])/, " \\1")
+    |> String.split
+    |> Enum.map(&String.first/1)
+    |> Enum.join
+    |> String.upcase
   end
 end
