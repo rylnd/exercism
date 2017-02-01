@@ -8,7 +8,21 @@ defmodule RunLengthEncoder do
   """
   @spec encode(String.t) :: String.t
   def encode(string) do
+    string
+    |> String.codepoints
+    |> run_lengths([])
+    |> Enum.map(fn({char, count}) -> "#{count}#{char}" end)
+    |> Enum.join
+  end
 
+  defp run_lengths([], string) do
+    Enum.reverse(string)
+  end
+  defp run_lengths([char|string], [{char, count}|out]) do
+    run_lengths(string, [{char, count+1}|out])
+  end
+  defp run_lengths([char|string], out) do
+    run_lengths(string, [{char, 1}|out])
   end
 
   @spec decode(String.t) :: String.t
