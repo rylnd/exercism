@@ -27,6 +27,11 @@ defmodule RunLengthEncoder do
 
   @spec decode(String.t) :: String.t
   def decode(string) do
-
+    ~r/(\d+)([^\d])/
+    |> Regex.scan(string)
+    |> Enum.map(fn([_, count, char]) ->
+      String.duplicate(char, String.to_integer(count))
+    end)
+    |> Enum.join
   end
 end
