@@ -13,13 +13,13 @@ defmodule Scrabble do
 
   defp character_score(char) do
     cond do
-      char in ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"] -> 1
-      char in ["d", "g"] -> 2
-      char in ["b", "c", "m", "p"] -> 3
-      char in ["f", "h", "v", "w", "y"] -> 4
-      char in ["k"] -> 5
-      char in ["j", "x"] -> 8
-      char in ["q", "z"] -> 10
+      String.contains?("aeioulnrst", char) -> 1
+      String.contains?("dg", char) -> 2
+      String.contains?("bcmp", char) -> 3
+      String.contains?("fhvwy", char) -> 4
+      String.contains?("k", char) -> 5
+      String.contains?("jx", char) -> 8
+      String.contains?("qz", char) -> 10
       true -> 0
     end
   end
